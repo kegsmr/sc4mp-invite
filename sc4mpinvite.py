@@ -1,0 +1,56 @@
+import sys
+import requests
+import re
+
+from flask import Flask, send_from_directory, jsonify, redirect, abort, render_template
+
+app = Flask(__name__)
+
+
+def remove_html_tags(text):
+
+    return re.sub(r'<.*?>', '', text)
+
+
+@app.after_request
+def add_cors_headers(response):
+
+	response.headers['Access-Control-Allow-Origin'] = '*'
+
+	return response
+
+
+@app.route('/.well-known/acme-challenge/<filename>')
+def serve_challenge(filename):
+	
+    return send_from_directory(filename)
+
+
+@app.route("/<server_id>", methods=["GET"])
+def invite(server_id):
+
+	response = requests.get(f"https://api.sc4mp.org/servers/{server_id}")
+
+	if response.status_code == 200:
+
+		data = response.json()
+
+		url = data["url"]
+		info = data.get("info", {})
+		name = info.get("server_name", "SC4MP Server")
+		description = remove_html_tags(info.get("server_description", "No description provided.")).replace("\n", "<br>")
+		link = info.get("server_url", "www.sc4mp.org")
+
+		if not link.startswith("http"):
+			link = f"http://{link}"
+
+		return render_template("invite.html", url=url, name=name, description=description, link=link)
+	
+	else:
+
+		return abort(404, description="The invite link corresponds to a SC4MP server which no longer exists.")
+
+
+if __name__ == '__main__':
+
+    app.run(host=sys.argv[1], port=int(sys.argv[2]))

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{name}}</title>
+	<link rel="stylesheet" href="https://www.sc4mp.org/assets/css/rubic.css">
+	<link rel="icon" type="image/x-icon" href="https://www.sc4mp.org/assets/imgs/favicon.ico">
+	<style>
+		a {
+			color:blue;
+		}
+	</style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    <nav id="scrollspy" class="navbar page-navbar navbar-dark navbar-expand-md fixed-top affix" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="navbar-brand" href="https://www.sc4mp.org/"><strong style="font-family: Tahoma; font-weight: 700;"><span style="color: #ffd74c">SC4</span><span style="color: #d03333;">MP</span></strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+	<section class="section text-center">
+		<div class="container text-left d-inline-block" style="max-width: 800px; margin-top: 100px;">
+			<h3>{{name}}</h3>
+			<hr>
+			<p>
+				{{description | safe}}
+				<br>
+				<br>
+				<a href="{{link}}" target="_blank">{{link}}</a>
+			</p>
+			<hr>
+			<p>The SC4MP Launcher is required to join. You can get it <a href="https://www.sc4mp.org/#download">here</a>.</p>
+			<a class="btn btn-primary btn-lg download-link" href="{{url}}">Join</a>
+		</div>
+	</section>
+</body>
+</html>
