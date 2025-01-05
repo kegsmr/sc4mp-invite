@@ -1,6 +1,7 @@
 import sys
 import requests
 import re
+import os
 
 from flask import Flask, send_from_directory, jsonify, redirect, abort, render_template
 
@@ -22,8 +23,10 @@ def add_cors_headers(response):
 
 @app.route('/.well-known/acme-challenge/<filename>')
 def serve_challenge(filename):
+
+    challenge_directory = os.path.join(os.getcwd(), '.well-known', 'acme-challenge')
 	
-    return send_from_directory(filename)
+    return send_from_directory(challenge_directory, filename)
 
 
 @app.route("/<server_id>", methods=["GET"])
