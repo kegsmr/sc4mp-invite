@@ -45,6 +45,8 @@ def invite(server_id):
 		data = response.json()
 
 		url = data["url"]
+		host = data["host"]
+		port = data["port"]
 		info = data.get("info", {})
 		name = info.get("server_name", "SC4MP Server")
 		description = remove_html_tags(info.get("server_description", "No description provided.")).replace("\n", "<br>")
@@ -53,7 +55,7 @@ def invite(server_id):
 		if not link.startswith("http"):
 			link = f"http://{link}"
 
-		return render_template("invite.html", url=url, name=name, description=description, link=link)
+		return render_template("invite.html", url=url, name=name, description=description, link=link, host=host, port=port)
 	
 	else:
 
