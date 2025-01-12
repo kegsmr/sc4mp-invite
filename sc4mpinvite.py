@@ -21,6 +21,12 @@ def add_cors_headers(response):
 	return response
 
 
+@app.errorhandler(404)
+def error_404(e):
+
+	return render_template('error_404.html', description=e.description), 404
+
+
 @app.route('/.well-known/acme-challenge/<filename>')
 def serve_challenge(filename):
 
@@ -51,7 +57,7 @@ def invite(server_id):
 	
 	else:
 
-		return abort(404, description="The invite link corresponds to a SC4MP server which no longer exists.")
+		return abort(404, description="The invite link corresponds to a SC4MP server that is currently unreachable.")
 
 
 if __name__ == '__main__':
