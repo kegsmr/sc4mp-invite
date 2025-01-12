@@ -57,7 +57,7 @@ def invite(server_id):
 	
 	else:
 
-		return abort(404, description="The invite link corresponds to a SC4MP server that is currently unreachable.")
+		return abort(404, description="The invite link corresponds to an SC4MP server that is currently unreachable.")
 
 
 if __name__ == '__main__':
